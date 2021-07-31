@@ -14,7 +14,7 @@
    1';show databases;#
    ```
 
-   ![image-20210719103447286](sql%E6%B3%A8%E5%85%A5.assets/image-20210719103447286.png)
+   ![image-20210719103447286](https://github.com/Biusec/19Grade_CTFSummerTraining/tree/main/7%E6%9C%8818%E6%97%A5%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%8F%90%E4%BA%A4/Throokie/sql%E6%B3%A8%E5%85%A5.assets/image-20210719103447286.png)
 
 3. 查看表，和查看表结构
 

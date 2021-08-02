@@ -1,0 +1,5 @@
+# BUUCTF-28.usualCrypt
+
+1.IDA打开，搜索字符串，发现了两串字符：字母表“ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/”，字符串“zMXHz3TIgnxLxJhFAdtZn2fFk3lYCrtPC2l9”，推测这道题可能是和base64有关，但是直接解码无效，看看代码吧。
+
+2.算法的实现在sub_401080这个函数中，需要注意的是这个函数在编码前还调整了字母表的顺序，变为了“ABCDEFQRSTUVWXYZGHIJKLMNOPabcdefghijklmnopqrstuvwxyz0123456789+/”，编码完成后，还将代码的大小写调换，可以找个支持自定义字母表的base64在线解码工具进行解码，结果是>la?{bAse64_h2s_a_Surprise}，flag这四个字母有些问题，可能在某个隐秘的地方把p替换成了p，不过无伤大雅，falg已经得到了

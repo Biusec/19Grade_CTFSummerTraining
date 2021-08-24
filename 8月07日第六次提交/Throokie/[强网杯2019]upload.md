@@ -4,7 +4,7 @@
 
 发现www.tar.gz备份文件。
 
-> 这平台有429[太多请求限制]防护。dirsearch扫描一堆429。
+> 这平台有429[太多请求限制]防护。dirsearch扫描一堆429。于是用了最笨的方法。
 
 ## 文件上传
 
@@ -416,9 +416,7 @@ public function update_img(){ //更新头像
 
 ## 绕过
 
-首先，看到有__destruct魔法方法，一般这是入口。所以我们可以序列化Register类，这样在反序列化时。由于Register类中有\_\_destruct方法。
-
-所以当请求处理完成时、销毁该类时。可以进入这个魔法方法之中。
+首先，看到有__destruct魔法方法，一般这是入口。所以我们可以序列化Register类，这样在反序列化时。由于Register类中有\_\_destruct方法。所以当请求处理完成时、销毁该类时。可以进入这个魔法方法之中。
 
 
 
@@ -450,7 +448,7 @@ class Register extends Controller
 }
 ```
 
-**构造待序列化的入口方法(失败)**
+**构造待序列化的入口方法-1**
 
 ```php
 <?php
@@ -468,13 +466,11 @@ class Register {
 (1)$checker= new Index控制器->(2)进入destruct->(3)执行Index控制器中的index方法。
 ```
 
-那么如果流程这么走那就没戏了，哈哈哈。我们得让它进入Profile控制器类
-
-所以我们不能让它进入Index控制器。
+那么如果流程这么走那就没戏了，哈哈哈。我们得让它进入Profile控制器类，执行我们的改文件名字功能。所以我们不能让它进入Index控制器。
 
 修改下
 
-**构造待序列化的入口方法(成功)**
+**构造待序列化的入口方法-2**
 
 ```php
 <?php
@@ -538,7 +534,9 @@ class Profile extends Controller
 之后的流程
 
 ```
-1. 进入__call方法。传入的值。name : index ; arguments : ''
+1. 进入__call方法。传入的值。
+name : index , 
+arguments : ''
 2. 进入第一个if。Profile类没有index属性,进入__get方法
 3. 返回except['index']的值。我们令它为Profile类的任意方法名
 4. 回到__call方法。执行$this->任意方法名(无传参)
@@ -594,7 +592,7 @@ public function upload_img(){
 
 2. 第二个检查post文件，我们就不上传了。跳过
 
-3. 第三个检查ext文件结尾。我们序列化一个。第二个if上传现在的头像位置。并且filename要更改成php文件。再经过copy方法。至此整个pop链利用完毕
+3. 第三个检查ext文件结尾。我们序列化一个true绕过。第二个if上传现在的头像位置。并且filename要更改成php文件。再经过copy方法。至此整个pop链利用完毕
 
 **Profile类序列化编写(2)** 
 
@@ -638,6 +636,10 @@ echo base64_encode(serialize($a)); //注意赛题源码反序列化时用
 随便一个界面，更改cookie。刷新。因为哪个界面刷新都会进入判断是否登录的方法。而该方法里就有反序列化。
 
 ![image-20210810013955757](%5B%E5%BC%BA%E7%BD%91%E6%9D%AF2019%5Dupload.assets/image-20210810013955757.png)
+
+最后成功将头像马改成php文件。
+
+
 
 蚁剑连接
 
